@@ -22,20 +22,63 @@ Go言語学習用社内会議資料です。
 ** .NET Frameworkなどのランタイムが不要
 ** 配布しやすい
 
-== 文法
+== このexampleで紹介すること
 
-簡単。
+=== 文法
 
-== エラーハンドリング
+シンプル。最初は変数宣言とforの書き方にちょっと戸惑うかもしれない。
 
-例外がない。
+=== エラーハンドリング
 
-== 単体テスト
+例外がない。エラーを戻り値で返す方式。
+
+=== 単体テスト
 
 標準で付属。標準でカバレッジレポートを出せる。
 
-== 並行プログラミング
+== このexampleで紹介しないこと
 
-省略。GoといえばGoroutineによる並行プログラミングが特徴だが、入門というほどのものではないのでここではあつかわない。
+=== 並行プログラミング
 
-link:https://www.oreilly.co.jp/books/9784873118468/[Go言語による並行処理]
+GoといえばGoroutineによる並行プログラミングが特徴だが、入門というほどのものではないのでここではあつかわない。
+
+link:https://www.oreilly.co.jp/books/9784873118468/[Go言語による並行処理]を読むとよい。
+
+== 作り方
+
+=== Go開発環境インストール
+
+ビルドされた実行ファイルは単体動作可能。開発を行う端末のみGoの開発環境をインストールする。
+
+link:https://go.dev/dl/[Go download page]
+
+[NOTE]
+====
+最新バージョンを入れればよい。Goは後方互換性を強く意識しているので、Goのバージョンを上げてもソースがコンパイル不可能になることは基本的にない。
+ビルドした実行ファイルは単体動作可能なので、Goそのもののバージョンは関係ない。
+====
+
+=== 初期設定
+
+. モジュールを作りたいフォルダ(C#でいうと `*.csproj` のあるフォルダ)を作り、ターミナルでそこに入る
+** WindowsだとVSCodeでフォルダを開いてターミナルを開けばよい
+. `go mod init` と打つと怒られるので、Example usageに沿ってモジュールの名前を決める。
++
+[source, sh]
+----
+> go mod init
+go: cannot determine module path for source directory E:\\hogehoge\\go-cli-example-for-internal-meeting (outside GOPATH, module path must be specified)
+
+Example usage:
+        'go mod init example.com/m' to initialize a v0 or v1 module
+        'go mod init example.com/m/v2' to initialize a v2 module
+----
++
+. `go mod init cliexample/yakiniku` と打つと、このexampleと同じgo.modができる。
+
+=== ソースのフォルダ構成
+
+自由。OSSではlink:https://github.com/mattn/goreman[rootに置く]のが主流。公式がフォルダ構成を示してないので自分で考える。
+
+今回のexmapleではrootにmain.goを置いて、lib配下に各パッケージ(C#の名前空間みたいなの)を置いている。
+
