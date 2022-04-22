@@ -82,3 +82,32 @@ Example usage:
 
 今回のexmapleではrootにmain.goを置いて、lib配下に各パッケージ(C#の名前空間みたいなの)を置いている。
 
+=== パッケージ名
+
+フォルダ内で一意。フォルダ名が推奨。
+
+=== 書き方
+
+link:https://go.dev/doc/effective_go[Effective Go]
+
+link:https://zigenin.hateblo.jp/entry/2020/12/21/043625[訳]
+
+=== CLIルート
+
+コマンドラインオプションの受け方
+
+=== ビジネスロジック
+
+for分をいっぱい書く
+
+=== アクセス指定
+
+大文字小文字の話
+
+=== Interface
+
+構造的部分型の話
+
+=== 単体テスト
+
+作り方
