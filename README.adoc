@@ -88,13 +88,25 @@ Example usage:
 
 === 書き方
 
-link:https://go.dev/doc/effective_go[Effective Go]
+公式のEffective Goを参考にするといいが、英語なのでを併記する。
 
-link:https://zigenin.hateblo.jp/entry/2020/12/21/043625[訳]
+* link:https://go.dev/doc/effective_go[Effective Go]
+* link:http://go.shibu.jp/effective_go.html[訳(いつ時点のか不明)]
+* link:https://zigenin.hateblo.jp/entry/2020/12/21/043625[超訳]
 
 === CLIルート
 
-コマンドラインオプションの受け方
+コマンドライン引数をPOSIX標準で書けるlink:https://github.com/spf13/cobra[cobra]が便利。
+
+=== サードパーティライブラリの入れ方
+
+リポジトリのURLから `https://` を外したものをimport文で書く。
+
+. import文に書いてから `go mod tidy` する。
++
+NOTE: `go mod tidy` で `go.mod` の依存関係を解決してくれる。
++
+. `go get ライブラリ` でライブラリを入れる。
 
 === ビジネスロジック
 
