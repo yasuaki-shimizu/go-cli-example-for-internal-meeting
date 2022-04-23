@@ -8,34 +8,39 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var (
+type executer struct {
 	price   int
 	members []string
-)
-
-func main() {
-	cmd := cobra.Command{
-		Use:  "Calculate the members payment.",
-		RunE: run,
-	}
-	cmd.Flags().IntVarP(&price, "price", "p", 0, "total price")
-	cmd.Flags().StringSliceVarP(&members, "members", "m", nil, "members joined in party")
-
-	err := cmd.Execute()
-	if err != nil {
-		log.Fatal(err)
-	}
+	cmd     *cobra.Command
 }
 
-func run(cmd *cobra.Command, args []string) error {
-	num := len(members)
+func newExecuter() *executer {
+	e := executer{}
+
+	cmd := cobra.Command{
+		Use:  "Calculate the members payment.",
+		RunE: e.run,
+	}
+	cmd.Flags().IntVarP(&e.price, "price", "p", 0, "total price")
+	cmd.Flags().StringSliceVarP(&e.members, "members", "m", nil, "members joined in party")
+
+	e.cmd = &cmd
+	return &e
+}
+
+func (e *executer) Execute() error {
+	return e.cmd.Execute()
+}
+
+func (e *executer) run(cmd *cobra.Command, args []string) error {
+	num := len(e.members)
 	if num == 0 {
 		return errors.New("no one joined in this party")
 	}
 
-	mod := price % num
-	payment := price / num
-	for i, member := range members {
+	mod := e.price % num
+	payment := e.price / num
+	for i, member := range e.members {
 		p := payment
 		if i == 0 {
 			p += mod
@@ -44,4 +49,13 @@ func run(cmd *cobra.Command, args []string) error {
 	}
 
 	return nil
+}
+
+func main() {
+	exe := newExecuter()
+
+	err := exe.Execute()
+	if err != nil {
+		log.Fatal(err)
+	}
 }
