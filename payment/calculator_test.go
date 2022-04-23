@@ -52,3 +52,16 @@ func TestCalculatorMod(t *testing.T) {
 
 	is.Equal(expected, responsibilies)
 }
+
+func TestCalculatorShouldHaveMembers(t *testing.T) {
+	// Calculatorはメンバーが必要というテスト
+
+	is := is.New(t)
+
+	_, err := payment.NewCalculator(
+		[]string{},
+		3000,
+	)
+
+	is.True(err != nil)
+}
