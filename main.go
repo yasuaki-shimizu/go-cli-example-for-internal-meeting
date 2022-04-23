@@ -1,7 +1,7 @@
 package main
 
 import (
-	"errors"
+	"cliexample/yakiniku/payment"
 	"fmt"
 	"log"
 
@@ -33,19 +33,14 @@ func (e *executer) Execute() error {
 }
 
 func (e *executer) run(cmd *cobra.Command, args []string) error {
-	num := len(e.members)
-	if num == 0 {
-		return errors.New("no one joined in this party")
+	calc, err := payment.NewCalculator(e.members, e.price)
+	if err != nil {
+		return err
 	}
 
-	mod := e.price % num
-	payment := e.price / num
-	for i, member := range e.members {
-		p := payment
-		if i == 0 {
-			p += mod
-		}
-		fmt.Printf("%s: %d\n", member, p)
+	responsibilities := calc.Calculate()
+	for _, r := range responsibilities {
+		fmt.Println(r)
 	}
 
 	return nil
