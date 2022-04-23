@@ -8,14 +8,14 @@ import (
 	"github.com/spf13/cobra"
 )
 
-type executer struct {
+type executor struct {
 	price   int
 	members []string
 	cmd     *cobra.Command
 }
 
-func newExecuter() *executer {
-	e := executer{}
+func newExecutor() *executor {
+	e := executor{}
 
 	cmd := cobra.Command{
 		Use:  "Calculate the members payment.",
@@ -28,11 +28,11 @@ func newExecuter() *executer {
 	return &e
 }
 
-func (e *executer) Execute() error {
+func (e *executor) Execute() error {
 	return e.cmd.Execute()
 }
 
-func (e *executer) run(cmd *cobra.Command, args []string) error {
+func (e *executor) run(cmd *cobra.Command, args []string) error {
 	calc, err := payment.NewCalculator(e.members, e.price)
 	if err != nil {
 		return err
@@ -47,7 +47,7 @@ func (e *executer) run(cmd *cobra.Command, args []string) error {
 }
 
 func main() {
-	exe := newExecuter()
+	exe := newExecutor()
 
 	err := exe.Execute()
 	if err != nil {
